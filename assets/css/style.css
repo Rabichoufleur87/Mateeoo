@@ -281,22 +281,29 @@ li { margin-bottom: .35rem; }
               border-color var(--transition), transform var(--transition),
               box-shadow var(--transition);
 }
-.btn:active { transform: translateY(1px); }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(.96); transition-duration: 80ms; }
 
 .btn--primaire { background: var(--accent-fort); color: var(--accent-contraste); box-shadow: var(--ombre-1); }
 .btn--primaire:hover { background: var(--accent); color: var(--accent-contraste); box-shadow: var(--ombre-2); }
 
 .btn--secondaire { background: var(--surface); color: var(--texte); border-color: var(--bordure-forte); }
-.btn--secondaire:hover { background: var(--surface-2); color: var(--texte); border-color: var(--accent); }
+.btn--secondaire:hover { background: var(--surface-2); color: var(--texte); border-color: var(--accent); box-shadow: var(--ombre-1); }
 
 .btn--fantome { background: transparent; color: var(--accent-fort); border-color: currentColor; }
 .btn--fantome:hover { background: var(--accent-doux); }
 
 .btn--terre { background: var(--terre-700); color: #fff; }
-.btn--terre:hover { background: #7f4016; color: #fff; }
+.btn--terre:hover { background: #7f4016; color: #fff; box-shadow: var(--ombre-2); }
 
 .btn--petit { padding: .45rem .9rem; font-size: .86rem; }
-.btn .icone { width: 1.05rem; height: 1.05rem; }
+.btn .icone {
+  width: 1.05rem;
+  height: 1.05rem;
+  transition: transform var(--transition);
+}
+/* La flèche glisse légèrement au survol : un petit signal « ça bouge ». */
+.btn:hover .icone { transform: translateX(3px); }
 
 /* --- 5. Bandeau d'information -------------------------------------------- */
 .bandeau-info {
@@ -418,6 +425,7 @@ li { margin-bottom: .35rem; }
   padding: 0;
 }
 .nav__lien {
+  position: relative;
   display: block;
   padding: .5rem .62rem;
   border-radius: var(--r-sm);
@@ -428,7 +436,23 @@ li { margin-bottom: .35rem; }
   white-space: nowrap;
   transition: background var(--transition), color var(--transition);
 }
-.nav__lien:hover { background: var(--surface-2); color: var(--texte); }
+.nav__lien:hover { background: var(--accent-doux); color: var(--texte); }
+/* Soulignement animé : se déploie depuis le centre au survol / focus. */
+.nav__lien::after {
+  content: "";
+  position: absolute;
+  left: .75rem;
+  right: .75rem;
+  bottom: .2rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--accent-fort);
+  transform: scaleX(0);
+  transition: transform 260ms cubic-bezier(.4, 0, .2, 1);
+}
+.nav__lien:hover::after,
+.nav__lien:focus-visible::after { transform: scaleX(1); }
+.nav__lien[aria-current="page"]::after { display: none; }
 .nav__lien[aria-current="page"] {
   color: var(--accent-fort);
   background: var(--accent-doux);
@@ -474,6 +498,14 @@ li { margin-bottom: .35rem; }
   box-shadow: var(--ombre-1);
 }
 .bouton-icone:active { transform: translateY(0) scale(.94); }
+
+/* Petit tourbillon sur l'icône jour/nuit au moment du basculement. */
+@keyframes bascule-theme {
+  0% { transform: rotate(0deg) scale(1); }
+  40% { transform: rotate(140deg) scale(.7); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.bouton-icone--bascule svg { animation: bascule-theme 460ms cubic-bezier(.4, 0, .2, 1); }
 .bouton-icone svg { width: 1.1rem; height: 1.1rem; }
 
 .bouton-recherche {
@@ -529,6 +561,19 @@ li { margin-bottom: .35rem; }
 }
 
 @keyframes apparition { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- Apparition au défilement ---------------------------------------------
+   Repose sur une classe posée par JavaScript (html.anime-actif) : sans JS,
+   ou si la personne a demandé « moins de mouvement », le contenu reste
+   visible en permanence — l'animation n'est jamais une condition d'accès
+   à l'information. */
+html.anime-actif .anime-entree {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .6s cubic-bezier(.2, .7, .2, 1), transform .6s cubic-bezier(.2, .7, .2, 1);
+  transition-delay: min(calc(var(--rang, 0) * 70ms), 480ms);
+}
+html.anime-actif .anime-entree.visible { opacity: 1; transform: none; }
 @keyframes glisser { from { transform: translateX(100%); } to { transform: none; } }
 
 @media (max-width: 480px) {
@@ -788,6 +833,7 @@ li { margin-bottom: .35rem; }
 .actu__details[open] .actu__lire::after { transform: rotate(-135deg) translate(-1px, -1px); }
 .actu__details[open] .actu__lire { margin-bottom: .4rem; }
 .actu__lire:hover { text-decoration: underline; }
+.actu__corps { display: grid; gap: .6rem; padding-top: .1rem; }
 .actu--epingle { border-left-color: var(--terre-600); background: linear-gradient(180deg, var(--terre-100) 0%, var(--surface) 38%); }
 :root[data-theme="sombre"] .actu--epingle { background: linear-gradient(180deg, var(--terre-100) 0%, var(--surface) 45%); }
 
@@ -814,7 +860,8 @@ li { margin-bottom: .35rem; }
   flex: none;
 }
 .actu__source a:hover { text-decoration: underline; }
-.actu__source a .icone { width: .95rem; height: .95rem; }
+.actu__source a .icone { width: .95rem; height: .95rem; transition: transform var(--transition); }
+.actu__source a:hover .icone { transform: translateX(3px); }
 .actu__nom-source { color: var(--texte-faible); font-size: .84rem; min-width: 0; }
 
 /* --- 11. Agenda ---------------------------------------------------------- */
@@ -896,6 +943,15 @@ li { margin-bottom: .35rem; }
 }
 .demarche[open] > summary::after { transform: rotate(-135deg); }
 .demarche[open] > summary { background: var(--surface-2); border-bottom: 1px solid var(--bordure); }
+
+/* --- Accordéon animé -------------------------------------------------
+   La hauteur est animée en JavaScript (Web Animations API, voir
+   initAccordeons dans app.js) : plus fiable d'un moteur à l'autre que la
+   bascule automatique du navigateur sur [open], qui ne s'anime pas.
+   Repli sans JS : le contenu reste simplement visible/masqué au clic,
+   sans animation — jamais d'information perdue. */
+.pliable { overflow: hidden; }
+
 .demarche__corps { padding: 1.25rem; display: grid; gap: 1rem; }
 .demarche__corps p { color: var(--texte-doux); font-size: .96rem; }
 
@@ -1051,11 +1107,19 @@ li { margin-bottom: .35rem; }
   cursor: pointer;
   transition: all var(--transition);
 }
-.filtre:hover { border-color: var(--accent); color: var(--texte); }
+.filtre:hover { border-color: var(--accent); color: var(--texte); transform: translateY(-1px); }
+.filtre:active { transform: translateY(0) scale(.93); transition-duration: 80ms; }
 .filtre[aria-pressed="true"] {
   background: var(--accent-fort);
   border-color: var(--accent-fort);
   color: var(--accent-contraste);
+  animation: pastille-choisie 320ms cubic-bezier(.34, 1.4, .64, 1);
+}
+/* Petit "rebond" satisfaisant quand un filtre devient actif. */
+@keyframes pastille-choisie {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+  100% { transform: scale(1); }
 }
 
 /* --- 16. Pied de page ---------------------------------------------------- */

@@ -100,7 +100,13 @@
         var suivant = actuel === "sombre" ? "clair" : "sombre";
         document.documentElement.setAttribute("data-theme", suivant);
         try { localStorage.setItem(cle, suivant); } catch (e) { /* ignoré */ }
-        $$("[data-action='theme']").forEach(majEtiquetteTheme);
+        $$("[data-action='theme']").forEach(function (b) {
+          majEtiquetteTheme(b);
+          // Petit tourbillon sur l'icône pour marquer le changement.
+          b.classList.remove("bouton-icone--bascule");
+          void b.offsetWidth; // force le navigateur à repartir de zéro
+          b.classList.add("bouton-icone--bascule");
+        });
       });
     });
   }
@@ -242,7 +248,7 @@
 
   /* --- Actualités -------------------------------------------------------- */
   function carteActu(a) {
-    return '<article class="actu' + (a.epingle ? " actu--epingle" : "") + '" id="' + echappe(a.id) + '">' +
+    return '<article class="actu anime-entree' + (a.epingle ? " actu--epingle" : "") + '" id="' + echappe(a.id) + '">' +
       '<div class="actu__meta">' +
         (a.epingle ? '<span class="etiquette etiquette--terre">À la une</span>' : "") +
         '<span class="etiquette etiquette--gris">' + echappe(a.categorie) + "</span>" +
@@ -251,8 +257,9 @@
       "<h3>" + echappe(a.titre) + "</h3>" +
       "<p>" + echappe(a.chapo) + "</p>" +
       (a.corps ? '<details class="actu__details"><summary class="actu__lire">Lire la suite</summary>' +
+        '<div class="pliable"><div class="actu__corps">' +
         a.corps.split("\n\n").map(function (p) { return "<p>" + echappe(p) + "</p>"; }).join("") +
-        "</details>" : "") +
+        "</div></div></details>" : "") +
       "</article>";
   }
 
@@ -286,12 +293,14 @@
       liste.innerHTML = visibles.length
         ? visibles.map(carteActu).join("")
         : '<p class="texte-doux">Aucune actualité dans cette rubrique.</p>';
+      observerRevelations(liste);
+      initAccordeons(liste);
     });
   }
 
   /* --- Actualités du département (sélection sourcée, hors flux communal) -- */
   function carteActuDepartement(a) {
-    return '<article class="actu actu--externe">' +
+    return '<article class="actu actu--externe anime-entree">' +
       '<div class="actu__meta">' +
         '<span class="etiquette etiquette--bleu">' + echappe(a.categorie) + "</span>" +
         "<time datetime='" + echappe(a.date) + "'>" + dateLongue(a.date) + "</time>" +
@@ -333,7 +342,7 @@
     }
     liste.innerHTML = items.map(function (e) {
       var d = dateDepuis(e.date);
-      return '<article class="evenement">' +
+      return '<article class="evenement anime-entree">' +
         '<div class="evenement__date" aria-hidden="true"><span class="jour">' + d.getDate() +
           '</span><span class="mois">' + MOIS_COURT[d.getMonth()] + "</span></div>" +
         "<div>" +
@@ -359,8 +368,8 @@
         echappe(groupe.categorie.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-")) + '">' +
         '<h2 class="titre-groupe">' + icone(groupe.icone) + " " + echappe(groupe.categorie) + "</h2>" +
         groupe.items.map(function (it) {
-          return '<details class="demarche"><summary>' + echappe(it.titre) + "</summary>" +
-            '<div class="demarche__corps">' +
+          return '<details class="demarche anime-entree"><summary>' + echappe(it.titre) + "</summary>" +
+            '<div class="pliable"><div class="demarche__corps">' +
               (it.detail ? "<p>" + echappe(it.detail) + "</p>" : "") +
               '<dl class="infos-cles">' +
                 (it.ou ? '<div class="info-cle"><dt>Où s\'adresser</dt><dd>' + echappe(it.ou) + "</dd></div>" : "") +
@@ -372,7 +381,7 @@
                 : "") +
               (it.lien ? '<p><a class="btn btn--fantome btn--petit" href="' + echappe(it.lien) +
                 '" target="_blank" rel="noopener">Fiche officielle ' + icone("fleche") + "</a></p>" : "") +
-            "</div></details>";
+            "</div></div></details>";
         }).join("") + "</section>";
     }).join("");
 
@@ -420,7 +429,7 @@
     var com = $("[data-commissions]");
     if (com) {
       com.innerHTML = (e.commissions || []).map(function (c) {
-        return '<div class="carte"><h3>' + echappe(c.nom) + "</h3><p>" + echappe(c.objet) + "</p></div>";
+        return '<div class="carte anime-entree"><h3>' + echappe(c.nom) + "</h3><p>" + echappe(c.objet) + "</p></div>";
       }).join("");
     }
     var av = $("[data-avertissement-elus]");
@@ -607,6 +616,101 @@
     });
   }
 
+  /* --- Apparition au défilement -------------------------------------------
+     Les cartes (actualités, démarches, agenda…) apparaissent en douceur
+     quand elles entrent dans l'écran. Jamais de perte d'information : sans
+     JavaScript ou avec « moins de mouvement » demandé par la personne, tout
+     reste simplement visible (voir la garde html.anime-actif en CSS). */
+  var observateurRevelation = null;
+
+  function observerRevelations(racine) {
+    if (!observateurRevelation) return;
+    var elements = $$(".anime-entree:not([data-observe])", racine || document);
+    if (!elements.length) return;
+
+    // Range chaque carte parmi ses sœurs directes pour un effet « cascade »
+    // limité à son propre groupe (grille, liste…), pas à toute la page.
+    var rangParParent = new Map();
+    elements.forEach(function (el) {
+      el.setAttribute("data-observe", "1");
+      var parent = el.parentElement;
+      var rang = rangParParent.get(parent) || 0;
+      el.style.setProperty("--rang", rang);
+      rangParParent.set(parent, rang + 1);
+      observateurRevelation.observe(el);
+    });
+  }
+
+  function initRevelations() {
+    var reduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduit || typeof IntersectionObserver !== "function") return; // reste simplement visible
+
+    document.documentElement.classList.add("anime-actif");
+    observateurRevelation = new IntersectionObserver(function (entrees) {
+      entrees.forEach(function (entree) {
+        if (entree.isIntersecting) {
+          entree.target.classList.add("visible");
+          observateurRevelation.unobserve(entree.target);
+        }
+      });
+    }, { threshold: .12, rootMargin: "0px 0px -40px 0px" });
+
+    observerRevelations(document);
+  }
+
+  /* --- Accordéons animés (démarches, « Lire la suite ») -------------------
+     On pilote soi-même l'ouverture/fermeture avec la Web Animations API :
+     plus régulier d'un navigateur à l'autre que de compter sur la bascule
+     native de <details>, qui ne s'anime pas partout. Sans JavaScript ou si
+     window.Animate est absent, <details> garde son comportement natif
+     (ouverture/fermeture instantanée) : rien ne reste inaccessible. */
+  function activerAccordeon(details) {
+    if (details.dataset.accordeonPret) return;
+    details.dataset.accordeonPret = "1";
+    var sommaire = details.querySelector(":scope > summary");
+    var enveloppe = details.querySelector(":scope > .pliable");
+    if (!sommaire || !enveloppe || typeof enveloppe.animate !== "function") return;
+
+    var animation = null;
+    var reduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var duree = reduit ? 1 : 320;
+
+    function lancer(de, vers, surFin) {
+      if (animation) animation.cancel();
+      enveloppe.style.overflow = "hidden";
+      animation = enveloppe.animate(
+        { height: [de + "px", vers + "px"], opacity: [vers > de ? .3 : 1, vers > de ? 1 : .3] },
+        { duration: duree, easing: "cubic-bezier(.4, 0, .2, 1)" }
+      );
+      animation.onfinish = function () {
+        enveloppe.style.height = "";
+        enveloppe.style.overflow = "";
+        enveloppe.style.opacity = "";
+        animation = null;
+        if (surFin) surFin();
+      };
+    }
+
+    sommaire.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (details.open) {
+        var depart = enveloppe.getBoundingClientRect().height;
+        lancer(depart, 0, function () { details.removeAttribute("open"); });
+      } else {
+        details.setAttribute("open", "");
+        enveloppe.style.height = "0px"; // évite un flash à pleine hauteur avant l'animation
+        requestAnimationFrame(function () {
+          var cible = enveloppe.scrollHeight;
+          lancer(0, cible);
+        });
+      }
+    });
+  }
+
+  function initAccordeons(racine) {
+    $$("details.demarche, details.actu__details", racine || document).forEach(activerAccordeon);
+  }
+
   /* --- Année courante ----------------------------------------------------- */
   function initAnnee() {
     $$("[data-annee]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -631,6 +735,8 @@
     initFormulaire();
     initAnnee();
     initTableaux();
+    initAccordeons();
+    initRevelations();
     window.addEventListener("resize", initTableaux);
     setInterval(initStatut, 60000);
   }
