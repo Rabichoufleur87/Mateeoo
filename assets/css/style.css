@@ -366,7 +366,8 @@ li { margin-bottom: .35rem; }
   flex: none;
 }
 .marque:hover { color: var(--texte); }
-.marque__blason { width: 2.5rem; height: 2.5rem; flex: none; }
+/* Image rectangulaire (blason officiel) : hauteur fixe, largeur libre pour ne pas la déformer. */
+.marque__blason { height: 2.3rem; width: auto; flex: none; }
 .marque__nom {
   font-family: var(--police-titre);
   font-size: 1.15rem;
@@ -415,6 +416,10 @@ li { margin-bottom: .35rem; }
   align-items: center;
   gap: .4rem;
   flex: none;
+  /* Pousse toujours le bloc contre le bord droit, y compris quand la nav
+     (seule autre porteuse de margin-left:auto) sort du flux au gabarit
+     mobile : sans ça, les boutons restaient collés au logo. */
+  margin-left: auto;
   /* Reste au-dessus du panneau de navigation ouvert, pour garder le bouton
      de fermeture accessible. */
   position: relative;
@@ -498,7 +503,7 @@ li { margin-bottom: .35rem; }
   .conteneur { width: min(100% - 2rem, var(--largeur)); }
   .entete__interieur { gap: .5rem; min-height: 4rem; }
   .marque { gap: .6rem; }
-  .marque__blason { width: 2.2rem; height: 2.2rem; }
+  .marque__blason { height: 2rem; width: auto; }
   .marque__nom { font-size: 1.02rem; }
   .marque__sous { font-size: .62rem; letter-spacing: .09em; }
   .bouton-icone { width: 2.4rem; height: 2.4rem; }
@@ -977,7 +982,7 @@ li { margin-bottom: .35rem; }
 }
 .pied ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; font-size: .93rem; }
 .pied__marque { display: flex; gap: .85rem; align-items: start; }
-.pied__marque svg { width: 3rem; height: 3rem; flex: none; }
+.pied__marque img { height: 2.9rem; width: auto; flex: none; }
 .pied__marque strong { display: block; color: #fff; font-family: var(--police-titre); font-size: 1.15rem; }
 .pied__marque p { font-size: .9rem; margin-top: .35rem; }
 .pied__bas {
