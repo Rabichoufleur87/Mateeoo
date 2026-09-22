@@ -37,7 +37,8 @@
     document: '<path d="M14 2H6.5A1.5 1.5 0 0 0 5 3.5v17A1.5 1.5 0 0 0 6.5 22h11a1.5 1.5 0 0 0 1.5-1.5V7Z"/><path d="M14 2v5h5M9 13h6M9 17h6"/>',
     fleche: '<path d="M5 12h14M13 6l6 6-6 6"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
-    groupe: '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M18 20a6.4 6.4 0 0 0-2.3-4.9"/>'
+    groupe: '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M18 20a6.4 6.4 0 0 0-2.3-4.9"/>',
+    etoile: '<path d="M12 3.5 14.6 9l6 .9-4.3 4.2 1 6-5.3-2.8L6.7 20l1-6-4.3-4.2 6-.9Z"/>'
   };
 
   function icone(nom, classe) {
@@ -250,9 +251,9 @@
   function carteActu(a) {
     return '<article class="actu anime-entree' + (a.epingle ? " actu--epingle" : "") + '" id="' + echappe(a.id) + '">' +
       '<div class="actu__meta">' +
-        (a.epingle ? '<span class="etiquette etiquette--terre">À la une</span>' : "") +
+        (a.epingle ? '<span class="etiquette etiquette--terre">' + icone("etoile") + " À la une</span>" : "") +
         '<span class="etiquette etiquette--gris">' + echappe(a.categorie) + "</span>" +
-        "<time datetime='" + echappe(a.date) + "'>" + dateLongue(a.date) + "</time>" +
+        "<time datetime='" + echappe(a.date) + "'>" + icone("calendrier") + " " + dateLongue(a.date) + "</time>" +
       "</div>" +
       "<h3>" + echappe(a.titre) + "</h3>" +
       "<p>" + echappe(a.chapo) + "</p>" +
@@ -350,9 +351,9 @@
           (e.recurrent ? '<span class="etiquette etiquette--gris">' + echappe(e.recurrent) + "</span>" : "") + "</div>" +
           "<h3>" + echappe(e.titre) + "</h3>" +
           '<div class="evenement__infos">' +
-            "<span>" + icone("calendrier") + "<time datetime='" + echappe(e.date) + "'>" + dateLongue(e.date) + "</time></span>" +
-            (e.heure ? "<span>" + icone("horloge") + echappe(e.heure.replace(":", "h")) + "</span>" : "") +
-            (e.lieu ? "<span>" + icone("lieu") + echappe(e.lieu) + "</span>" : "") +
+            "<span><span class='puce-icone puce-icone--bleu'>" + icone("calendrier") + "</span><time datetime='" + echappe(e.date) + "'>" + dateLongue(e.date) + "</time></span>" +
+            (e.heure ? "<span><span class='puce-icone puce-icone--terre'>" + icone("horloge") + "</span>" + echappe(e.heure.replace(":", "h")) + "</span>" : "") +
+            (e.lieu ? "<span><span class='puce-icone puce-icone--info'>" + icone("lieu") + "</span>" + echappe(e.lieu) + "</span>" : "") +
           "</div>" +
           (e.description ? "<p>" + echappe(e.description) + "</p>" : "") +
         "</div></article>";
@@ -372,8 +373,10 @@
             '<div class="pliable"><div class="demarche__corps">' +
               (it.detail ? "<p>" + echappe(it.detail) + "</p>" : "") +
               '<dl class="infos-cles">' +
-                (it.ou ? '<div class="info-cle"><dt>Où s\'adresser</dt><dd>' + echappe(it.ou) + "</dd></div>" : "") +
-                (it.delai ? '<div class="info-cle"><dt>Délai</dt><dd>' + echappe(it.delai) + "</dd></div>" : "") +
+                (it.ou ? '<div class="info-cle"><span class="puce-icone puce-icone--bleu">' + icone("lieu") +
+                  "</span><div><dt>Où s'adresser</dt><dd>" + echappe(it.ou) + "</dd></div></div>" : "") +
+                (it.delai ? '<div class="info-cle"><span class="puce-icone puce-icone--terre">' + icone("horloge") +
+                  "</span><div><dt>Délai</dt><dd>" + echappe(it.delai) + "</dd></div></div>" : "") +
               "</dl>" +
               (it.pieces && it.pieces.length
                 ? "<div><strong>Pièces à fournir</strong><ul class='liste-pieces'>" +
@@ -396,11 +399,19 @@
 
   /* --- Annuaire ---------------------------------------------------------- */
   function initAnnuaire() {
+    var styleParSection = {
+      sante: ["sante", "terre"],
+      servicesPublics: ["mairie", "bleu"],
+      commerces: ["maison", "or"],
+      associations: ["groupe", "info"]
+    };
     $$("[data-annuaire]").forEach(function (cible) {
       var cle = cible.getAttribute("data-annuaire");
+      var style = styleParSection[cle] || ["info", "bleu"];
       var items = (D.annuaire && D.annuaire[cle]) || [];
       cible.innerHTML = items.map(function (it) {
         return "<li>" +
+          "<span class='puce-icone puce-icone--" + style[1] + "'>" + icone(style[0]) + "</span>" +
           "<div style='flex:1 1 12rem'><strong>" + echappe(it.nom) + "</strong>" +
           (it.categorie ? ' <span class="etiquette etiquette--gris">' + echappe(it.categorie) + "</span>" : "") + "</div>" +
           (it.detail ? '<span class="detail">' + echappe(it.detail) + "</span>" : "") +
