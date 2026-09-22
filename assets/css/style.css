@@ -5,13 +5,15 @@
 
 /* --- 1. Jetons de design ------------------------------------------------- */
 :root {
-  --vert-900: #0d3528;
-  --vert-800: #124636;
-  --vert-700: #175a46;
-  --vert-600: #1d7358;
-  --vert-500: #2a9070;
-  --vert-100: #dcefe7;
-  --vert-050: #eef7f3;
+  /* Bleu du blason communal (azur, cf. assets/img/blason-officiel.png),
+     étendu en échelle complète pour l'identité du site. */
+  --bleu-900: #0b3049;
+  --bleu-800: #0f4468;
+  --bleu-700: #146394;
+  --bleu-600: #2482b8;
+  --bleu-500: #4fa3d1;
+  --bleu-100: #dcedf8;
+  --bleu-050: #eff7fc;
 
   --terre-700: #9a4f1c;
   --terre-600: #b85f22;
@@ -21,8 +23,9 @@
   --or-600: #a9852b;
   --or-100: #f8efd6;
 
-  --bleu-600: #1f5f8b;
-  --bleu-100: #dfeaf3;
+  /* Accent secondaire (étiquettes « info »), distinct du bleu principal. */
+  --info-600: #1d7358;
+  --info-100: #dcefe7;
 
   --gris-950: #10171a;
   --gris-900: #18232a;
@@ -35,13 +38,13 @@
   --gris-100: #eef2f5;
   --gris-050: #f7f9fa;
 
-  --fond: #fbfaf7;
+  --fond: #fbfaf9;
   --fond-alt: #ffffff;
-  --fond-doux: var(--vert-050);
+  --fond-doux: var(--bleu-050);
   --surface: #ffffff;
   --surface-2: var(--gris-050);
-  --bordure: #e3e8e6;
-  --bordure-forte: #cbd5d1;
+  --bordure: #e2e8ec;
+  --bordure-forte: #c9d5dc;
 
   --texte: var(--gris-900);
   --texte-doux: var(--gris-700);
@@ -49,17 +52,20 @@
   --texte-inverse: #ffffff;
 
   --sur-terre: var(--terre-700);
-  --sur-bleu: var(--bleu-600);
+  --sur-info: var(--info-600);
   --sur-or: var(--or-600);
 
-  --accent: var(--vert-700);
-  --accent-fort: var(--vert-800);
-  --accent-doux: var(--vert-100);
+  --accent: var(--bleu-700);
+  --accent-fort: var(--bleu-800);
+  --accent-doux: var(--bleu-100);
   --accent-contraste: #ffffff;
 
-  --ombre-1: 0 1px 2px rgba(16, 33, 27, .06), 0 1px 3px rgba(16, 33, 27, .05);
-  --ombre-2: 0 4px 10px rgba(16, 33, 27, .07), 0 2px 4px rgba(16, 33, 27, .04);
-  --ombre-3: 0 14px 32px rgba(16, 33, 27, .12), 0 4px 10px rgba(16, 33, 27, .06);
+  /* Plaque derrière le logo : blanche en clair, noire en sombre. */
+  --plaque-logo: #ffffff;
+
+  --ombre-1: 0 1px 2px rgba(11, 33, 49, .06), 0 1px 3px rgba(11, 33, 49, .05);
+  --ombre-2: 0 4px 10px rgba(11, 33, 49, .08), 0 2px 4px rgba(11, 33, 49, .05);
+  --ombre-3: 0 14px 32px rgba(11, 33, 49, .14), 0 4px 10px rgba(11, 33, 49, .07);
 
   --r-xs: 6px;
   --r-sm: 10px;
@@ -81,7 +87,7 @@
 :root[data-theme="sombre"] {
   --fond: #0c1316;
   --fond-alt: #111b20;
-  --fond-doux: #10221c;
+  --fond-doux: #0e222c;
   --surface: #141f25;
   --surface-2: #1a272e;
   --bordure: #263640;
@@ -91,22 +97,25 @@
   --texte-doux: #b9c7cf;
   --texte-faible: #94a6b0;
 
-  --accent: #57c39b;
-  --accent-fort: #7ad3b2;
-  --accent-doux: #163a2e;
-  --accent-contraste: #06201a;
+  --accent: #5cb6e8;
+  --accent-fort: #8ccdf2;
+  --accent-doux: #113349;
+  --accent-contraste: #04202f;
 
   --sur-terre: #f0a97e;
-  --sur-bleu: #8fc4e8;
+  --sur-info: #6bcaa3;
   --sur-or: #e3c479;
 
-  --vert-050: #10221c;
-  --vert-100: #16382c;
+  --bleu-050: #0c2331;
+  --bleu-100: #123449;
   --terre-100: #331d0f;
   --or-100: #322a12;
-  --bleu-100: #13293a;
+  --info-100: #123a2d;
   --gris-050: #16222a;
   --gris-100: #1c2a33;
+
+  /* Plaque derrière le logo : noire en sombre, comme demandé. */
+  --plaque-logo: #0a0a0b;
 
   --ombre-1: 0 1px 2px rgba(0, 0, 0, .5);
   --ombre-2: 0 4px 12px rgba(0, 0, 0, .45);
@@ -291,11 +300,11 @@ li { margin-bottom: .35rem; }
 
 /* --- 5. Bandeau d'information -------------------------------------------- */
 .bandeau-info {
-  background: var(--vert-900);
-  color: #dbeee5;
+  background: var(--bleu-900);
+  color: #d9ebf7;
   font-size: .87rem;
 }
-:root[data-theme="sombre"] .bandeau-info { background: #081411; }
+:root[data-theme="sombre"] .bandeau-info { background: #061019; }
 
 .bandeau-info .conteneur {
   display: flex;
@@ -366,8 +375,22 @@ li { margin-bottom: .35rem; }
   flex: none;
 }
 .marque:hover { color: var(--texte); }
+
+/* Plaque derrière le blason (fond détouré) : blanche en thème clair, noire
+   en thème sombre, pour que l'écu se détache proprement dans les deux cas. */
+.marque__plaque {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .3rem .55rem;
+  border-radius: var(--r-sm);
+  background: var(--plaque-logo);
+  border: 1px solid var(--bordure);
+  flex: none;
+  transition: background var(--transition), border-color var(--transition);
+}
 /* Image rectangulaire (blason officiel) : hauteur fixe, largeur libre pour ne pas la déformer. */
-.marque__blason { height: 2.3rem; width: auto; flex: none; }
+.marque__blason { height: 2.1rem; width: auto; flex: none; }
 .marque__nom {
   font-family: var(--police-titre);
   font-size: 1.15rem;
@@ -431,22 +454,31 @@ li { margin-bottom: .35rem; }
   align-items: center;
   justify-content: center;
   gap: .4rem;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2.5rem;
+  height: 2.5rem;
   padding: 0;
-  border-radius: var(--r-sm);
+  border-radius: var(--r-full);
   border: 1px solid var(--bordure);
   background: var(--surface);
   color: var(--texte-doux);
   cursor: pointer;
-  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  transition: background var(--transition), color var(--transition),
+              border-color var(--transition), transform var(--transition),
+              box-shadow var(--transition);
 }
-.bouton-icone:hover { background: var(--surface-2); color: var(--texte); border-color: var(--bordure-forte); }
-.bouton-icone svg { width: 1.15rem; height: 1.15rem; }
+.bouton-icone:hover {
+  background: var(--accent-doux);
+  color: var(--accent-fort);
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: var(--ombre-1);
+}
+.bouton-icone:active { transform: translateY(0) scale(.94); }
+.bouton-icone svg { width: 1.1rem; height: 1.1rem; }
 
 .bouton-recherche {
   width: auto;
-  padding: 0 .8rem;
+  padding: 0 .9rem 0 .8rem;
   font: inherit;
   font-size: .9rem;
   color: var(--texte-faible);
@@ -488,7 +520,7 @@ li { margin-bottom: .35rem; }
   .voile {
     position: fixed;
     inset: 0;
-    background: rgba(8, 20, 17, .45);
+    background: rgba(6, 16, 24, .5);
     border: 0;
     padding: 0;
     z-index: 89;
@@ -501,13 +533,16 @@ li { margin-bottom: .35rem; }
 
 @media (max-width: 480px) {
   .conteneur { width: min(100% - 2rem, var(--largeur)); }
-  .entete__interieur { gap: .5rem; min-height: 4rem; }
-  .marque { gap: .6rem; }
-  .marque__blason { height: 2rem; width: auto; }
-  .marque__nom { font-size: 1.02rem; }
-  .marque__sous { font-size: .62rem; letter-spacing: .09em; }
-  .bouton-icone { width: 2.4rem; height: 2.4rem; }
-  .bouton-recherche { width: 2.4rem; }
+  .entete__interieur { gap: .4rem; min-height: 3.9rem; }
+  .marque { gap: .5rem; }
+  .marque__plaque { padding: .16rem .3rem; }
+  .marque__blason { height: 1.5rem; width: auto; }
+  .marque__nom { font-size: .96rem; }
+  .marque__sous { font-size: .58rem; letter-spacing: .07em; }
+  .entete__actions { gap: .3rem; }
+  .bouton-icone { width: 2.2rem; height: 2.2rem; }
+  .bouton-icone svg { width: 1rem; height: 1rem; }
+  .bouton-recherche { width: 2.2rem; }
 }
 
 @media (max-width: 620px) {
@@ -521,7 +556,7 @@ li { margin-bottom: .35rem; }
 .heros {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(160deg, var(--vert-900) 0%, var(--vert-700) 52%, var(--vert-600) 100%);
+  background: linear-gradient(160deg, var(--bleu-900) 0%, var(--bleu-700) 52%, var(--bleu-600) 100%);
   color: #fff;
   isolation: isolate;
 }
@@ -538,8 +573,8 @@ li { margin-bottom: .35rem; }
   max-width: 46rem;
 }
 .heros h1 { color: #fff; margin-bottom: .6rem; }
-.heros p { color: #d8eae3; font-size: 1.12rem; max-width: 38rem; }
-.heros .surtitre { color: #a7d9c4; }
+.heros p { color: #d6e9f5; font-size: 1.12rem; max-width: 38rem; }
+.heros .surtitre { color: #a3d3ec; }
 .heros .surtitre::before { background: var(--terre-500); }
 .heros__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
 .heros .btn--secondaire {
@@ -549,8 +584,8 @@ li { margin-bottom: .35rem; }
   backdrop-filter: blur(4px);
 }
 .heros .btn--secondaire:hover { background: rgba(255, 255, 255, .22); color: #fff; }
-.heros .btn--primaire { background: #fff; color: var(--vert-800); }
-.heros .btn--primaire:hover { background: var(--vert-050); color: var(--vert-900); }
+.heros .btn--primaire { background: #fff; color: var(--bleu-800); }
+.heros .btn--primaire:hover { background: var(--bleu-050); color: var(--bleu-900); }
 
 .heros__chiffres {
   display: flex;
@@ -566,26 +601,26 @@ li { margin-bottom: .35rem; }
   font-size: 1.7rem;
   line-height: 1.1;
 }
-.heros__chiffre span { font-size: .82rem; color: #b9d9cd; text-transform: uppercase; letter-spacing: .07em; }
+.heros__chiffre span { font-size: .82rem; color: #b3d4ea; text-transform: uppercase; letter-spacing: .07em; }
 
 /* Bandeau de page intérieure */
 .banniere {
-  background: linear-gradient(150deg, var(--vert-800), var(--vert-600));
+  background: linear-gradient(150deg, var(--bleu-800), var(--bleu-600));
   color: #fff;
   padding: clamp(2.25rem, 5vw, 3.5rem) 0 clamp(2.5rem, 5vw, 3.75rem);
   position: relative;
   overflow: hidden;
 }
 .banniere h1 { color: #fff; margin-bottom: .4rem; }
-.banniere p { color: #d5e9e1; max-width: 60ch; margin: 0; }
-.banniere .surtitre { color: #a7d9c4; }
+.banniere p { color: #d3e7f4; max-width: 60ch; margin: 0; }
+.banniere .surtitre { color: #a3d3ec; }
 
 .fil {
   font-size: .85rem;
   margin-bottom: 1.1rem;
 }
 .fil ol { list-style: none; display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; }
-.fil li { margin: 0; display: inline-flex; align-items: center; gap: .35rem; color: #b9d9cd; }
+.fil li { margin: 0; display: inline-flex; align-items: center; gap: .35rem; color: #b3d4ea; }
 .fil li + li::before { content: "›"; opacity: .7; }
 .fil a { color: #dff0e9; text-decoration: none; }
 .fil a:hover { text-decoration: underline; color: #fff; }
@@ -634,7 +669,7 @@ li { margin-bottom: .35rem; }
 .tuile strong { font-size: .99rem; font-weight: 700; line-height: 1.3; }
 .tuile span { font-size: .84rem; color: var(--texte-faible); line-height: 1.45; }
 .tuile--terre .tuile__icone { background: var(--terre-100); color: var(--sur-terre); }
-.tuile--bleu .tuile__icone { background: var(--bleu-100); color: var(--sur-bleu); }
+.tuile--bleu .tuile__icone { background: var(--info-100); color: var(--sur-info); }
 .tuile--or .tuile__icone { background: var(--or-100); color: var(--sur-or); }
 
 /* --- 9. Cartes ----------------------------------------------------------- */
@@ -673,7 +708,7 @@ li { margin-bottom: .35rem; }
   white-space: nowrap;
 }
 .etiquette--terre { background: var(--terre-100); color: var(--sur-terre); }
-.etiquette--bleu { background: var(--bleu-100); color: var(--sur-bleu); }
+.etiquette--bleu { background: var(--info-100); color: var(--sur-info); }
 .etiquette--or { background: var(--or-100); color: var(--sur-or); }
 .etiquette--gris { background: var(--gris-100); color: var(--texte-doux); }
 
@@ -879,7 +914,7 @@ li { margin-bottom: .35rem; }
   font-size: .95rem;
 }
 .encadre strong { display: block; margin-bottom: .2rem; }
-.encadre--info { border-left-color: var(--bleu-600); background: var(--bleu-100); }
+.encadre--info { border-left-color: var(--info-600); background: var(--info-100); }
 .encadre--vert { border-left-color: var(--accent); background: var(--accent-doux); }
 
 /* --- 14. Recherche globale ----------------------------------------------- */
@@ -893,7 +928,7 @@ li { margin-bottom: .35rem; }
   box-shadow: var(--ombre-3);
   margin-top: 8vh;
 }
-.dialogue-recherche::backdrop { background: rgba(8, 20, 17, .55); backdrop-filter: blur(3px); }
+.dialogue-recherche::backdrop { background: rgba(6, 16, 24, .58); backdrop-filter: blur(3px); }
 .recherche__haut { display: flex; align-items: center; gap: .75rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--bordure); }
 .recherche__haut svg { width: 1.25rem; height: 1.25rem; color: var(--texte-faible); flex: none; }
 .recherche__haut input {
@@ -966,14 +1001,14 @@ li { margin-bottom: .35rem; }
 
 /* --- 16. Pied de page ---------------------------------------------------- */
 .pied {
-  background: var(--vert-900);
-  color: #c6ded4;
+  background: var(--bleu-900);
+  color: #c2d9ec;
   padding: clamp(2.5rem, 5vw, 4rem) 0 1.5rem;
   margin-top: 4rem;
 }
-:root[data-theme="sombre"] .pied { background: #081411; }
+:root[data-theme="sombre"] .pied { background: #061019; }
 .pied h3 { color: #fff; font-size: 1rem; font-family: var(--police); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 1rem; }
-.pied a { color: #c6ded4; text-decoration: none; }
+.pied a { color: #c2d9ec; text-decoration: none; }
 .pied a:hover { color: #fff; text-decoration: underline; }
 .pied__grille {
   display: grid;
@@ -1053,7 +1088,7 @@ li { margin-bottom: .35rem; }
 .liste-annuaire .tel { font-weight: 700; white-space: nowrap; }
 
 .appel {
-  background: linear-gradient(140deg, var(--vert-800), var(--vert-600));
+  background: linear-gradient(140deg, var(--bleu-800), var(--bleu-600));
   color: #fff;
   border-radius: var(--r-lg);
   padding: clamp(1.75rem, 4vw, 2.75rem);
@@ -1064,9 +1099,9 @@ li { margin-bottom: .35rem; }
   justify-content: space-between;
 }
 .appel h2 { color: #fff; margin: 0 0 .3rem; }
-.appel p { color: #d5e9e1; margin: 0; max-width: 46ch; }
-.appel .btn--primaire { background: #fff; color: var(--vert-800); }
-.appel .btn--primaire:hover { background: var(--vert-050); color: var(--vert-900); }
+.appel p { color: #d3e7f4; margin: 0; max-width: 46ch; }
+.appel .btn--primaire { background: #fff; color: var(--bleu-800); }
+.appel .btn--primaire:hover { background: var(--bleu-050); color: var(--bleu-900); }
 
 .tableau-simple { width: 100%; border-collapse: collapse; font-size: .95rem; }
 .tableau-simple th, .tableau-simple td { padding: .7rem .8rem; text-align: left; border-bottom: 1px solid var(--bordure); }
