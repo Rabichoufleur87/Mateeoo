@@ -38,7 +38,9 @@
     fleche: '<path d="M5 12h14M13 6l6 6-6 6"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
     groupe: '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.6M18 20a6.4 6.4 0 0 0-2.3-4.9"/>',
-    etoile: '<path d="M12 3.5 14.6 9l6 .9-4.3 4.2 1 6-5.3-2.8L6.7 20l1-6-4.3-4.2 6-.9Z"/>'
+    etoile: '<path d="M12 3.5 14.6 9l6 .9-4.3 4.2 1 6-5.3-2.8L6.7 20l1-6-4.3-4.2 6-.9Z"/>',
+    chevronGauche: '<path d="M15 6l-6 6 6 6"/>',
+    chevronDroite: '<path d="M9 6l6 6-6 6"/>'
   };
 
   function icone(nom, classe) {
@@ -296,6 +298,7 @@
         : '<p class="texte-doux">Aucune actualité dans cette rubrique.</p>';
       observerRevelations(liste);
       initAccordeons(liste);
+      initCarrousel(liste);
     });
   }
 
@@ -722,6 +725,76 @@
     $$("details.demarche, details.actu__details", racine || document).forEach(activerAccordeon);
   }
 
+  /* --- Carrousels ----------------------------------------------------------
+     Transforme une piste de cartes en diapositives défilables plutôt qu'un
+     empilement vertical sans fin : flèches, pastilles, clavier et balayage
+     tactile natif (scroll-snap). Se neutralise proprement (flèches et
+     pastilles masquées) quand tout tient déjà à l'écran. Rappelable après
+     chaque re-rendu (filtre, etc.) pour resynchroniser les pastilles. */
+  function initCarrousel(piste) {
+    var carrousel = piste.closest(".carrousel");
+    if (!carrousel) return;
+    var boutonPrec = carrousel.querySelector(".carrousel__fleche--prec");
+    var boutonSuiv = carrousel.querySelector(".carrousel__fleche--suiv");
+    var points = carrousel.querySelector(".carrousel__points");
+    var reduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var comportement = reduit ? "auto" : "smooth";
+
+    function cartes() { return $$(":scope > *", piste); }
+
+    function regenererPoints() {
+      if (!points) return;
+      var n = cartes().length;
+      points.innerHTML = n <= 1 ? "" : cartes().map(function (_, i) {
+        return '<button type="button" class="carrousel__point" aria-label="Aller à l\'élément ' + (i + 1) + " sur " + n + '"></button>';
+      }).join("");
+    }
+
+    function majEtat() {
+      var c = cartes();
+      var toutVisible = piste.scrollWidth <= piste.clientWidth + 2;
+      carrousel.classList.toggle("carrousel--sans-defilement", toutVisible || c.length <= 1);
+      if (boutonPrec) boutonPrec.disabled = piste.scrollLeft <= 4;
+      if (boutonSuiv) boutonSuiv.disabled = piste.scrollLeft >= piste.scrollWidth - piste.clientWidth - 4;
+      if (points) {
+        var actif = 0, meilleure = Infinity;
+        c.forEach(function (carte, i) {
+          var d = Math.abs(carte.offsetLeft - piste.scrollLeft);
+          if (d < meilleure) { meilleure = d; actif = i; }
+        });
+        $$(".carrousel__point", points).forEach(function (p, i) { p.setAttribute("aria-current", String(i === actif)); });
+      }
+    }
+
+    if (!carrousel.dataset.carrouselPret) {
+      carrousel.dataset.carrouselPret = "1";
+      if (boutonPrec) boutonPrec.addEventListener("click", function () { piste.scrollBy({ left: -piste.clientWidth, behavior: comportement }); });
+      if (boutonSuiv) boutonSuiv.addEventListener("click", function () { piste.scrollBy({ left: piste.clientWidth, behavior: comportement }); });
+      piste.addEventListener("scroll", function () { window.requestAnimationFrame(majEtat); }, { passive: true });
+      piste.setAttribute("tabindex", "0");
+      if (!piste.hasAttribute("aria-label")) piste.setAttribute("aria-label", "Défiler avec les flèches du clavier");
+      piste.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") { e.preventDefault(); piste.scrollBy({ left: piste.clientWidth, behavior: comportement }); }
+        else if (e.key === "ArrowLeft") { e.preventDefault(); piste.scrollBy({ left: -piste.clientWidth, behavior: comportement }); }
+      });
+      if (points) points.addEventListener("click", function (e) {
+        var btn = e.target.closest(".carrousel__point");
+        if (!btn) return;
+        var i = Array.prototype.indexOf.call(points.children, btn);
+        var cible = cartes()[i];
+        if (cible) piste.scrollTo({ left: cible.offsetLeft, behavior: comportement });
+      });
+      window.addEventListener("resize", majEtat);
+    }
+
+    regenererPoints();
+    majEtat();
+  }
+
+  function initCarrousels(racine) {
+    $$(".carrousel__piste", racine || document).forEach(initCarrousel);
+  }
+
   /* --- Année courante ----------------------------------------------------- */
   function initAnnee() {
     $$("[data-annee]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -747,6 +820,7 @@
     initAnnee();
     initTableaux();
     initAccordeons();
+    initCarrousels();
     initRevelations();
     window.addEventListener("resize", initTableaux);
     setInterval(initStatut, 60000);

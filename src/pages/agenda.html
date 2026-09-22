@@ -17,7 +17,16 @@ description: L'agenda de Saint-Mathieu (87440) : conseils municipaux, marché, c
 <section class="section">
   <div class="conteneur">
     <h2 class="evite-oeil">Événements à venir</h2>
-    <div class="liste-agenda" data-agenda="0"></div>
+    <div class="carrousel carrousel--large">
+      <div class="carrousel__piste" data-agenda="0" aria-label="Événements à venir, défiler avec les flèches du clavier"></div>
+      <button type="button" class="carrousel__fleche carrousel__fleche--prec" aria-label="Événements précédents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" class="carrousel__fleche carrousel__fleche--suiv" aria-label="Événements suivants">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="carrousel__points" role="group" aria-label="Aller à un événement"></div>
+    </div>
 
     <noscript>
       <div class="encadre">

@@ -18,7 +18,16 @@ description: Les actualités de la commune de Saint-Mathieu (87440) : informatio
   <div class="conteneur">
     <h2 class="evite-oeil">Filtrer les actualités</h2>
     <div class="filtres" data-filtres-actu role="group" aria-label="Filtrer par rubrique"></div>
-    <div class="grille" data-actualites="0"></div>
+    <div class="carrousel">
+      <div class="carrousel__piste" data-actualites="0" aria-label="Actualités, défiler avec les flèches du clavier"></div>
+      <button type="button" class="carrousel__fleche carrousel__fleche--prec" aria-label="Actualités précédentes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" class="carrousel__fleche carrousel__fleche--suiv" aria-label="Actualités suivantes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="carrousel__points" role="group" aria-label="Aller à une actualité"></div>
+    </div>
 
     <noscript>
       <div class="encadre">

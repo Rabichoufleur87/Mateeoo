@@ -1155,6 +1155,95 @@ html.anime-actif .anime-entree.visible { opacity: 1; transform: none; }
   padding: .05rem .3rem;
 }
 
+/* --- 14b. Carrousel -------------------------------------------------------
+   Remplace l'empilement vertical de cartes par des « diapositives »
+   défilables horizontalement (une piste à ancrage de défilement, native
+   donc fluide et tactile), avec flèches et pastilles pour la navigation
+   au clavier/à la souris. Se neutralise proprement quand tout tient déjà
+   à l'écran (aucune flèche, aucune pastille, juste une rangée normale). */
+.carrousel { position: relative; }
+.carrousel__piste {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: .2rem .2rem .5rem;
+  margin: -.2rem -.2rem -.5rem;
+}
+.carrousel__piste::-webkit-scrollbar { display: none; }
+.carrousel__piste:focus-visible { outline: 3px solid var(--terre-500); outline-offset: 4px; border-radius: var(--r-sm); }
+.carrousel__piste > * {
+  scroll-snap-align: start;
+  min-width: 0;
+  flex: 0 0 100%;
+}
+@media (min-width: 640px) {
+  .carrousel__piste > * { flex: 0 0 calc((100% - 1.25rem) / 2); }
+}
+@media (min-width: 1024px) {
+  .carrousel__piste > * { flex: 0 0 calc((100% - 2 * 1.25rem) / 3); }
+  .carrousel--large .carrousel__piste > * { flex: 0 0 calc((100% - 1.25rem) / 2); }
+}
+
+.carrousel__fleche {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--bordure);
+  color: var(--texte);
+  box-shadow: var(--ombre-2);
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), color var(--transition),
+              box-shadow var(--transition), opacity var(--transition), transform var(--transition);
+}
+.carrousel__fleche:hover { background: var(--accent-doux); color: var(--accent-fort); box-shadow: var(--ombre-3); }
+.carrousel__fleche:active { transform: translateY(-50%) scale(.92); }
+.carrousel__fleche:disabled { opacity: 0; pointer-events: none; }
+.carrousel__fleche svg { width: 1.15rem; height: 1.15rem; }
+.carrousel__fleche--prec { left: -1rem; }
+.carrousel__fleche--suiv { right: -1rem; }
+
+.carrousel__points {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1.2rem;
+}
+.carrousel__point {
+  width: .55rem;
+  height: .55rem;
+  border-radius: var(--r-full);
+  background: var(--bordure-forte);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background var(--transition), width var(--transition);
+}
+.carrousel__point:hover { background: var(--texte-faible); }
+.carrousel__point[aria-current="true"] { background: var(--accent-fort); width: 1.7rem; }
+
+/* Sur mobile/tablette, les petites flèches collées au bord gênent plus
+   qu'elles n'aident : on les cache et on laisse le balayage tactile,
+   plus naturel sur un écran étroit. */
+@media (max-width: 900px) {
+  .carrousel__fleche { display: none; }
+}
+
+.carrousel--sans-defilement .carrousel__fleche,
+.carrousel--sans-defilement .carrousel__points { display: none; }
+
 /* --- 15. Filtres --------------------------------------------------------- */
 .filtres {
   display: flex;

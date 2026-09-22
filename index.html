@@ -111,7 +111,16 @@
       <a class="btn btn--fantome btn--petit" href="agenda.html">Voir l'agenda</a>
     </div>
     <div class="filtres" data-filtres-actu role="group" aria-label="Filtrer par rubrique"></div>
-    <div class="grille grille--2" data-actualites="0"></div>
+    <div class="carrousel">
+      <div class="carrousel__piste" data-actualites="0" aria-label="Actualités municipales, défiler avec les flèches du clavier"></div>
+      <button type="button" class="carrousel__fleche carrousel__fleche--prec" aria-label="Actualités précédentes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" class="carrousel__fleche carrousel__fleche--suiv" aria-label="Actualités suivantes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="carrousel__points" role="group" aria-label="Aller à une actualité"></div>
+    </div>
 
     <noscript>
       <div class="encadre">
@@ -135,7 +144,16 @@
         Le Populaire du Centre
       </a>
     </div>
-    <div class="grille grille--2" data-actualites-departement></div>
+    <div class="carrousel">
+      <div class="carrousel__piste" data-actualites-departement aria-label="Actualités du département, défiler avec les flèches du clavier"></div>
+      <button type="button" class="carrousel__fleche carrousel__fleche--prec" aria-label="Actualités du département précédentes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button type="button" class="carrousel__fleche carrousel__fleche--suiv" aria-label="Actualités du département suivantes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="carrousel__points" role="group" aria-label="Aller à une actualité du département"></div>
+    </div>
     <p class="texte-doux" style="margin-top:1.25rem; font-size:.9rem">
       Sélection non exhaustive, composée par la mairie. Pour l'actualité en continu du département,
       consultez <a href="https://www.lepopulaire.fr/" target="_blank" rel="noopener">Le Populaire du Centre</a>
