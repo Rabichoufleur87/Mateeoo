@@ -289,6 +289,33 @@
     });
   }
 
+  /* --- Actualités du département (sélection sourcée, hors flux communal) -- */
+  function carteActuDepartement(a) {
+    return '<article class="actu actu--externe">' +
+      '<div class="actu__meta">' +
+        '<span class="etiquette etiquette--bleu">' + echappe(a.categorie) + "</span>" +
+        "<time datetime='" + echappe(a.date) + "'>" + dateLongue(a.date) + "</time>" +
+      "</div>" +
+      "<h3>" + echappe(a.titre) + "</h3>" +
+      "<p>" + echappe(a.extrait) + "</p>" +
+      '<p class="actu__source">' +
+        "<a href=\"" + echappe(a.lien) + "\" target=\"_blank\" rel=\"noopener\">Lire l'article " + icone("fleche") + "</a>" +
+        '<span class="actu__nom-source">' + echappe(a.source) + "</span>" +
+      "</p>" +
+    "</article>";
+  }
+
+  function initActualitesDepartement() {
+    var liste = $("[data-actualites-departement]");
+    if (!liste) return;
+    var items = (D.actualitesDepartement || []).slice().sort(function (a, b) {
+      return (b.date || "").localeCompare(a.date || "");
+    });
+    liste.innerHTML = items.length
+      ? items.map(carteActuDepartement).join("")
+      : '<p class="texte-doux">Aucune actualité départementale sélectionnée pour le moment.</p>';
+  }
+
   /* --- Agenda ------------------------------------------------------------ */
   function initAgenda() {
     var liste = $("[data-agenda]");
@@ -402,7 +429,7 @@
 
   /* --- Recherche globale -------------------------------------------------- */
   var PAGES = [
-    { t: "Accueil", u: "index.html", d: "Toutes les informations de la commune en un coup d'œil", m: "accueil bienvenue" },
+    { t: "Accueil", u: "index.html", d: "Actualités de la commune et du département", m: "accueil bienvenue actualites news" },
     { t: "Démarches administratives", u: "demarches.html", d: "État civil, identité, urbanisme, vie quotidienne", m: "papiers formulaire cerfa mairie guichet" },
     { t: "Carte d'identité et passeport", u: "demarches.html#papiers-d-identite", d: "Pré-demande ANTS et rendez-vous en mairie habilitée", m: "cni passeport ants identite" },
     { t: "Acte de naissance", u: "demarches.html#etat-civil", d: "Demande d'acte d'état civil", m: "naissance mariage deces acte copie extrait" },
@@ -595,6 +622,7 @@
     initStatut();
     initHoraires();
     initActualites();
+    initActualitesDepartement();
     initAgenda();
     initDemarches();
     initAnnuaire();

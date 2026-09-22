@@ -568,6 +568,39 @@ li { margin-bottom: .35rem; }
   opacity: .5;
   pointer-events: none;
 }
+
+/* Variante « photo » : image réelle du bourg en fond, assombrie par un
+   dégradé pour garantir la lisibilité du texte quel que soit le cliché. */
+.heros--photo { background: var(--bleu-900); }
+.heros__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+.heros--photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg,
+    rgba(9, 27, 41, .92) 0%,
+    rgba(9, 27, 41, .78) 38%,
+    rgba(9, 27, 41, .42) 68%,
+    rgba(9, 27, 41, .2) 100%);
+}
+:root[data-theme="sombre"] .heros--photo::before {
+  background: linear-gradient(100deg,
+    rgba(4, 12, 18, .94) 0%,
+    rgba(4, 12, 18, .82) 38%,
+    rgba(4, 12, 18, .5) 68%,
+    rgba(4, 12, 18, .26) 100%);
+}
+/* Page d'accueil resserrée sur l'essentiel : moins de hauteur que le héros
+   d'origine pour que les actualités restent visibles sans défiler. */
+.heros--photo .heros__interieur { padding: clamp(2.75rem, 6vw, 4.5rem) 0 clamp(2.5rem, 5vw, 3.75rem); }
 .heros__interieur {
   padding: clamp(3rem, 7vw, 6rem) 0 clamp(4rem, 8vw, 7rem);
   max-width: 46rem;
@@ -757,6 +790,32 @@ li { margin-bottom: .35rem; }
 .actu__lire:hover { text-decoration: underline; }
 .actu--epingle { border-left-color: var(--terre-600); background: linear-gradient(180deg, var(--terre-100) 0%, var(--surface) 38%); }
 :root[data-theme="sombre"] .actu--epingle { background: linear-gradient(180deg, var(--terre-100) 0%, var(--surface) 45%); }
+
+/* Actualités du département : sourcées à l'extérieur, présentation distincte
+   (bordure bleu clair) avec la source de presse toujours visible. */
+.actu--externe { border-left-color: var(--info-600); }
+.actu__source {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .3rem .75rem;
+  margin-top: .2rem !important;
+  font-size: .89rem;
+}
+.actu__source a {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-weight: 600;
+  color: var(--accent-fort);
+  text-decoration: none;
+  white-space: nowrap;
+  flex: none;
+}
+.actu__source a:hover { text-decoration: underline; }
+.actu__source a .icone { width: .95rem; height: .95rem; }
+.actu__nom-source { color: var(--texte-faible); font-size: .84rem; min-width: 0; }
 
 /* --- 11. Agenda ---------------------------------------------------------- */
 .liste-agenda { display: flex; flex-direction: column; gap: .75rem; }

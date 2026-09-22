@@ -133,6 +133,33 @@ window.DONNEES = {
       "epingle": false
     }
   ],
+  "actualitesDepartement": [
+    {
+      "_commentaire": "Sélection manuelle d'actualités de Haute-Vienne, sourcées et datées. À tenir à jour périodiquement : ce n'est pas un flux automatique.",
+      "titre": "Journées européennes du patrimoine : 206 visites et ouvertures exceptionnelles en Haute-Vienne",
+      "source": "Préfecture de la Haute-Vienne",
+      "date": "2026-09-17",
+      "categorie": "Culture",
+      "extrait": "Les 19 et 20 septembre, la préfecture et la sous-préfecture de Bellac ouvraient leurs portes, aux côtés des Archives départementales, de la forteresse de Châlucet et du musée d'art contemporain de Rochechouart, pour la plupart en accès libre.",
+      "lien": "https://www.haute-vienne.gouv.fr/Actualites/Journees-du-patrimoine-2026"
+    },
+    {
+      "titre": "La Coordination rurale de Haute-Vienne condamnée pour une série de dégradations",
+      "source": "France 3 Nouvelle-Aquitaine",
+      "date": "2026-09-18",
+      "categorie": "Justice",
+      "extrait": "Le tribunal de Limoges a prononcé plusieurs amendes avec sursis et des dédommagements pour neuf faits de dégradation commis sur la voie publique, à la préfecture ou à la MSA entre 2024 et 2026.",
+      "lien": "https://france3-regions.franceinfo.fr/nouvelle-aquitaine/haute-vienne/limoges/la-coordination-rurale-condamnee-pour-une-serie-de-degradations-il-y-aura-de-nouvelles-manifs-sans-trop-tarder-3419423.html"
+    },
+    {
+      "titre": "« Les lundis de l'énergie » : la CCI Limoges Haute-Vienne aide les commerces et PME à réduire leurs factures",
+      "source": "CCI Limoges Haute-Vienne",
+      "date": "2026-09-15",
+      "categorie": "Économie",
+      "extrait": "Des rencontres collectives gratuites sont proposées aux entreprises du département pour identifier des pistes concrètes de réduction de leur consommation d'énergie, dans un contexte de hausse des coûts.",
+      "lien": "https://www.limoges.cci.fr/"
+    }
+  ],
   "agenda": [
     {
       "id": "conseil-municipal-octobre",
