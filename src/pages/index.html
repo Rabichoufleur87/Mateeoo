@@ -1,0 +1,216 @@
+<!--
+titre: Accueil
+description: Site officiel de la commune de Saint-Mathieu (87440) en Haute-Vienne : démarches administratives, horaires de la mairie, actualités, agenda et vie pratique.
+-->
+
+<section class="heros">
+  <img class="heros__decor" src="assets/img/paysage.svg" alt="" aria-hidden="true">
+  <div class="conteneur">
+    <div class="heros__interieur">
+      <span class="surtitre">Haute-Vienne · Nouvelle-Aquitaine</span>
+      <h1>Bienvenue à Saint-Mathieu</h1>
+      <p>
+        Au sud-ouest de la Haute-Vienne, aux confins de la Charente et de la Dordogne,
+        Saint-Mathieu vous accueille au cœur du Parc naturel régional Périgord-Limousin.
+        Toutes vos informations municipales, en accès direct.
+      </p>
+      <div class="heros__actions">
+        <a class="btn btn--primaire" href="demarches.html">Faire une démarche</a>
+        <a class="btn btn--secondaire" href="contact.html">Contacter la mairie</a>
+      </div>
+      <div class="heros__chiffres">
+        <div class="heros__chiffre"><strong>1 081</strong><span>habitants</span></div>
+        <div class="heros__chiffre"><strong>40,7 km²</strong><span>de superficie</span></div>
+        <div class="heros__chiffre"><strong>14 ha</strong><span>de plan d'eau</span></div>
+        <div class="heros__chiffre"><strong>225–435 m</strong><span>d'altitude</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="acces-rapide">
+  <div class="conteneur">
+    <h2 class="evite-oeil">Accès rapide</h2>
+    <div class="grille-acces">
+      <a class="tuile" href="demarches.html#papiers-d-identite">
+        <span class="tuile__icone" data-icone="identite"></span>
+        <strong>Papiers d'identité</strong>
+        <span>Carte d'identité, passeport, recensement citoyen</span>
+      </a>
+      <a class="tuile tuile--terre" href="demarches.html#urbanisme">
+        <span class="tuile__icone" data-icone="maison"></span>
+        <strong>Urbanisme</strong>
+        <span>Permis de construire, déclaration de travaux</span>
+      </a>
+      <a class="tuile tuile--bleu" href="vie-pratique.html#dechets">
+        <span class="tuile__icone" data-icone="poubelle"></span>
+        <strong>Déchets</strong>
+        <span>Collecte tous les 15 jours, déchèterie</span>
+      </a>
+      <a class="tuile tuile--or" href="demarches.html#logement-et-vie-quotidienne">
+        <span class="tuile__icone" data-icone="cle"></span>
+        <strong>Louer une salle</strong>
+        <span>Salle des fêtes et salles communales</span>
+      </a>
+      <a class="tuile" href="vie-pratique.html#ecole">
+        <span class="tuile__icone" data-icone="ecole"></span>
+        <strong>École</strong>
+        <span>Inscription, cantine, périscolaire</span>
+      </a>
+      <a class="tuile tuile--terre" href="contact.html#signalement">
+        <span class="tuile__icone" data-icone="megaphone"></span>
+        <strong>Signaler</strong>
+        <span>Voirie, éclairage, dépôt sauvage</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="duo">
+      <div>
+        <div class="entete-section">
+          <div>
+            <span class="surtitre">Actualités</span>
+            <h2>Les informations municipales</h2>
+          </div>
+          <a class="btn btn--fantome btn--petit" href="actualites.html">Toutes les actualités</a>
+        </div>
+        <div class="grille" data-actualites="3"></div>
+      </div>
+
+      <div>
+        <div class="entete-section">
+          <div>
+            <span class="surtitre">Agenda</span>
+            <h2>Prochains rendez-vous</h2>
+          </div>
+        </div>
+        <div class="liste-agenda" data-agenda="3"></div>
+        <p style="margin-top:1rem"><a class="btn btn--fantome btn--petit" href="agenda.html">Voir tout l'agenda</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--doux">
+  <div class="conteneur">
+    <div class="duo">
+      <div>
+        <span class="surtitre">La mairie</span>
+        <h2>Votre mairie, en pratique</h2>
+        <p class="texte-doux">
+          L'accueil de la mairie vous reçoit du lundi au samedi matin pour l'ensemble de vos
+          démarches : état civil, urbanisme, cimetière, location de salles, inscriptions scolaires.
+          Vous pouvez aussi nous joindre par téléphone ou par courriel.
+        </p>
+        <ul class="liste-contact">
+          <li>
+            <span data-icone="mairie"></span>
+            <span><strong>Adresse</strong>1 place du Docteur-Hugonneau, 87440 Saint-Mathieu</span>
+          </li>
+          <li>
+            <span data-icone="tel"></span>
+            <span><strong>Téléphone</strong><a data-tel href="tel:+33555003026">05 55 00 30 26</a></span>
+          </li>
+          <li>
+            <span data-icone="courriel"></span>
+            <span><strong>Courriel</strong><a data-courriel href="mailto:mairie@st-mathieu.fr">mairie@st-mathieu.fr</a></span>
+          </li>
+        </ul>
+        <p style="margin-top:1.5rem">
+          <a class="btn btn--primaire" href="contact.html">Nous contacter</a>
+        </p>
+      </div>
+      <div class="carte">
+        <h3>Horaires d'ouverture</h3>
+        <p data-statut-mairie class="pastille pastille--ferme" style="margin-bottom:.9rem"></p>
+        <div data-horaires></div>
+        <div class="encadre encadre--info" style="margin-top:1.25rem">
+          <strong>Jours fériés</strong>
+          La mairie est fermée les jours fériés. Les fermetures exceptionnelles sont annoncées
+          dans les actualités et affichées à l'accueil.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="entete-section">
+      <div>
+        <span class="surtitre">Vos démarches</span>
+        <h2>Les demandes les plus fréquentes</h2>
+        <p>Chaque fiche indique où s'adresser, les pièces à fournir et les délais.</p>
+      </div>
+      <a class="btn btn--fantome btn--petit" href="demarches.html">Toutes les démarches</a>
+    </div>
+    <div class="grille grille--3">
+      <a class="carte carte--lien" href="demarches.html#etat-civil">
+        <span class="etiquette">État civil</span>
+        <h3>Acte de naissance, mariage, décès</h3>
+        <p>Demande gratuite pour les actes établis à Saint-Mathieu, au guichet ou par courrier.</p>
+        <span class="carte__pied btn btn--fantome btn--petit">Voir la fiche</span>
+      </a>
+      <a class="carte carte--lien" href="demarches.html#papiers-d-identite">
+        <span class="etiquette etiquette--terre">Identité</span>
+        <h3>Carte d'identité et passeport</h3>
+        <p>Pré-demande en ligne puis rendez-vous dans une mairie équipée du dispositif de recueil.</p>
+        <span class="carte__pied btn btn--fantome btn--petit">Voir la fiche</span>
+      </a>
+      <a class="carte carte--lien" href="demarches.html#urbanisme">
+        <span class="etiquette etiquette--bleu">Urbanisme</span>
+        <h3>Déclaration préalable de travaux</h3>
+        <p>Abri de jardin, clôture, ravalement, panneaux solaires, piscine de moins de 100 m².</p>
+        <span class="carte__pied btn btn--fantome btn--petit">Voir la fiche</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="conteneur">
+    <div class="duo">
+      <div class="illustration">
+        <img src="assets/img/etang.svg" alt="Illustration du plan d'eau de Saint-Mathieu et des collines boisées qui l'entourent" width="800" height="460">
+      </div>
+      <div>
+        <span class="surtitre">Découvrir</span>
+        <h2>Un village au bord de l'eau, au cœur du Parc</h2>
+        <p class="texte-doux">
+          Saint-Mathieu s'étend sur plus de 40 km² de bocage, de forêts de feuillus et de
+          résineux, entre 225 et 435 mètres d'altitude. Son complexe touristique déploie
+          22 hectares d'aménagements autour d'un plan d'eau de 14 hectares.
+        </p>
+        <p class="texte-doux">
+          La commune adhère à la charte du Parc naturel régional Périgord-Limousin. Sentiers de
+          randonnée, pêche, baignade en saison et patrimoine rural font la qualité de vie du
+          territoire des Monts de Châlus.
+        </p>
+        <p style="margin-top:1.5rem">
+          <a class="btn btn--primaire" href="decouvrir.html">Découvrir la commune</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="appel">
+      <div>
+        <h2>Une question ? Une demande ?</h2>
+        <p>
+          Le secrétariat de mairie vous répond du lundi au samedi matin. Pour un signalement
+          (voirie, éclairage public, dépôt sauvage), utilisez le formulaire en ligne.
+        </p>
+      </div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <a class="btn btn--primaire" href="contact.html">Écrire à la mairie</a>
+        <a class="btn btn--secondaire" data-tel href="tel:+33555003026">05 55 00 30 26</a>
+      </div>
+    </div>
+  </div>
+</section>

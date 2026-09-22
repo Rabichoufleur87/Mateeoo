@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Remplacez le domaine ci-dessous par l'adresse définitive du site.
+Sitemap: https://www.saint-mathieu.fr/sitemap.xml

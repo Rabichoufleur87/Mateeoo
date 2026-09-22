@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Blason stylisé de Saint-Mathieu">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d7358"/>
+      <stop offset="1" stop-color="#0d3528"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 2 58 9v24c0 13.8-10.6 24.4-26 29C16.6 57.4 6 46.8 6 33V9Z" fill="url(#bg)"/>
+  <path d="M32 2 58 9v24c0 13.8-10.6 24.4-26 29C16.6 57.4 6 46.8 6 33V9Z" fill="none" stroke="#c9a227" stroke-width="2"/>
+  <path d="M6 33.5c6-1 9 2.5 13 2.5s6-3 10-3 6 3 10 3 6.5-1.5 9-2.5V33c0 13.8-10.6 24.4-26 29C16.6 57.4 6 46.8 6 33Z" fill="#2a9070" opacity=".55"/>
+  <path d="M32 12v18M24 19h16" stroke="#f2e6c2" stroke-width="3" stroke-linecap="round"/>
+  <path d="M15 40c3.5 0 3.5-2.5 7-2.5s3.5 2.5 7 2.5 3.5-2.5 7-2.5 3.5 2.5 7 2.5" fill="none" stroke="#bfe6d4" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+  <path d="M15 46c3.5 0 3.5-2.5 7-2.5s3.5 2.5 7 2.5 3.5-2.5 7-2.5 3.5 2.5 7 2.5" fill="none" stroke="#bfe6d4" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+</svg>
