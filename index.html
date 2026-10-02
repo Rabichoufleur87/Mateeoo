@@ -1,244 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Actualités — Saint-Mathieu (87440)</title>
-<meta name="description" content="Actualités de Saint-Mathieu (87440) et du département de la Haute-Vienne : informations municipales et sélection de la presse régionale.">
-<meta name="theme-color" content="#146394">
-<meta name="author" content="Mairie de Saint-Mathieu">
-<meta property="og:site_name" content="Commune de Saint-Mathieu">
-<meta property="og:title" content="Actualités — Saint-Mathieu (87440)">
-<meta property="og:description" content="Actualités de Saint-Mathieu (87440) et du département de la Haute-Vienne : informations municipales et sélection de la presse régionale.">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="fr_FR">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/style.css">
-<script src="data/donnees.js" defer></script>
-<script src="assets/js/app.js" defer></script>
+<title>La Valise à Macarons — Limoges</title>
+<meta name="description" content="Macarons sucrés et salés faits à Limoges. Composez votre boîte en ligne et retirez-la en boutique, place Motte.">
+<style>
+:root{--rose:#e8799b;--rose-d:#c9507a;--creme:#fff8f1;--cacao:#4a2c2a;--pistache:#9cc59b;--citron:#f5d76e;--lilas:#b79ad8;--orange:#f2a15f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;background:var(--creme);color:var(--cacao);line-height:1.6}
+h1,h2,h3{font-family:'Trebuchet MS',system-ui,sans-serif;line-height:1.15}
+a{color:var(--rose-d)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:5;background:rgba(255,248,241,.95);backdrop-filter:blur(6px);border-bottom:1px solid #f0dccd}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:700 1.1rem 'Trebuchet MS',sans-serif;text-decoration:none;color:var(--cacao)}
+nav a{margin-left:18px;text-decoration:none;color:var(--cacao);font:.95rem system-ui,sans-serif}
+nav a:hover{color:var(--rose-d)}
+.hero{text-align:center;padding:64px 0 48px;background:radial-gradient(circle at 20% 20%,#ffe3ec 0,transparent 45%),radial-gradient(circle at 85% 70%,#e6f3e2 0,transparent 40%)}
+.hero h1{font-size:clamp(2rem,6vw,3.6rem);margin:0 0 12px}
+.hero p{max-width:540px;margin:0 auto 24px;font-size:1.1rem}
+.stack{display:flex;justify-content:center;gap:10px;margin-bottom:24px}
+.mac{width:52px;height:34px;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;position:relative;background:var(--c);box-shadow:inset 0 -6px 0 rgba(0,0,0,.08)}
+.mac::after{content:"";position:absolute;left:6%;right:6%;top:46%;height:8px;background:#fffaf0;border-radius:4px}
+.stack .mac{animation:bob 2.4s ease-in-out infinite;animation-delay:calc(var(--i)*.2s)}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.btn{display:inline-block;background:var(--rose);color:#fff;border:0;padding:13px 26px;border-radius:30px;font:600 1rem system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{background:var(--rose-d);transform:translateY(-2px)}
+.btn:disabled{background:#ccb;cursor:not-allowed;transform:none}
+section{padding:56px 0}
+section h2{font-size:2rem;margin:0 0 8px;text-align:center}
+.sub{text-align:center;margin:0 0 32px;opacity:.8}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:#fff;border-radius:18px;padding:22px;box-shadow:0 4px 14px rgba(74,44,42,.07)}
+.card h3{margin:0 0 6px}
+.composer{background:#fff;border-radius:22px;padding:24px;box-shadow:0 6px 20px rgba(74,44,42,.09)}
+.sizes{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:20px}
+.sizes button{border:2px solid var(--rose);background:#fff;color:var(--rose-d);padding:8px 18px;border-radius:24px;font:600 .95rem system-ui,sans-serif;cursor:pointer}
+.sizes button.on{background:var(--rose);color:#fff}
+.flavors{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.fl{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:14px;background:var(--creme)}
+.fl .mac{flex:none;width:38px;height:25px}
+.fl span.n{flex:1;font:.92rem system-ui,sans-serif}
+.fl small{display:block;opacity:.6}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:28px;height:28px;border-radius:50%;border:0;background:var(--rose);color:#fff;font-size:1.1rem;cursor:pointer}
+.qty b{min-width:18px;text-align:center;font-family:system-ui}
+.bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:20px;padding-top:16px;border-top:1px dashed #e8cfc0;font-family:system-ui,sans-serif}
+.progress{flex:1 1 200px;height:10px;background:#f3e3d8;border-radius:6px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--pistache);transition:width .25s}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+table{border-collapse:collapse;width:100%;font-family:system-ui,sans-serif}
+td{padding:6px 0;border-bottom:1px solid #f0dccd}
+td:last-child{text-align:right}
+footer{background:var(--cacao);color:#f6e8dc;text-align:center;padding:28px 16px;font:.9rem system-ui,sans-serif}
+footer a{color:#ffc9da}
+@media(max-width:600px){nav a{margin-left:10px;font-size:.85rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
-<body data-page="index">
+<body>
+<header><div class="wrap">
+  <a class="logo" href="#">🧳 La Valise à Macarons</a>
+  <nav><a href="#composer">Composer</a><a href="#boutique">Boutique</a><a href="#contact">Contact</a></nav>
+</div></header>
 
-<a class="lien-evitement" href="#contenu">Aller au contenu principal</a>
-
-<!-- BANDEAU:DEBUT -->
-<div class="bandeau-info">
-  <div class="conteneur">
-    <span class="bandeau-info__item bandeau-info__adresse">
-      <span data-icone="mairie"></span>
-      <a href="contact.html">1 place du Docteur-Hugonneau, 87440 Saint-Mathieu</a>
-    </span>
-    <span class="bandeau-info__item">
-      <span data-icone="tel"></span>
-      <a data-tel href="tel:+33555003026">05 55 00 30 26</a>
-    </span>
-    <span class="bandeau-info__fin">
-      <span data-statut-mairie class="pastille pastille--ferme">Horaires de la mairie</span>
-    </span>
+<main>
+<div class="hero"><div class="wrap">
+  <div class="stack" aria-hidden="true">
+    <div class="mac" style="--c:#e8799b;--i:0"></div><div class="mac" style="--c:#9cc59b;--i:1"></div>
+    <div class="mac" style="--c:#f5d76e;--i:2"></div><div class="mac" style="--c:#b79ad8;--i:3"></div>
+    <div class="mac" style="--c:#f2a15f;--i:4"></div>
   </div>
-</div>
-<!-- BANDEAU:FIN -->
+  <h1>Des macarons sucrés et salés, faits à Limoges</h1>
+  <p>Composez votre boîte à votre goût, on la prépare et vous la retirez en boutique.</p>
+  <a class="btn" href="#composer">Composer ma boîte</a>
+</div></div>
 
-<!-- ENTETE:DEBUT -->
-<header class="entete">
-  <div class="conteneur entete__interieur">
-    <a class="marque" href="index.html">
-      <span class="marque__plaque">
-        <img class="marque__blason" src="assets/img/blason-officiel.png" alt="" width="166" height="93">
-      </span>
-      <span>
-        <span class="marque__nom">Saint-Mathieu</span>
-        <span class="marque__sous">Haute-Vienne · 87440</span>
-      </span>
-    </a>
-
-    <nav class="nav" id="navigation" aria-label="Navigation principale">
-      <ul class="nav__liste">
-        <li><a class="nav__lien" href="index.html">Accueil</a></li>
-        <li><a class="nav__lien" href="demarches.html">Démarches</a></li>
-        <li><a class="nav__lien" href="vie-municipale.html">Vie municipale</a></li>
-        <li><a class="nav__lien" href="vie-pratique.html">Vie pratique</a></li>
-        <li><a class="nav__lien" href="decouvrir.html">Découvrir</a></li>
-        <li><a class="nav__lien" href="actualites.html">Actualités</a></li>
-        <li><a class="nav__lien" href="agenda.html">Agenda</a></li>
-        <li><a class="nav__lien" href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="entete__actions">
-      <button type="button" class="bouton-icone bouton-recherche" data-action="recherche"
-              aria-label="Rechercher sur le site">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-        </svg>
-        <span class="texte-recherche">Rechercher</span>
-        <span class="raccourci" aria-hidden="true">Ctrl K</span>
-      </button>
-      <button type="button" class="bouton-icone" data-action="theme" aria-label="Changer de thème"></button>
-      <button type="button" class="bouton-icone bouton-menu" data-action="menu"
-              aria-expanded="false" aria-controls="navigation" aria-label="Ouvrir le menu"></button>
-    </div>
-  </div>
-</header>
-<!-- ENTETE:FIN -->
-
-<main id="contenu">
-<section class="heros heros--photo">
-  <img class="heros__photo" src="assets/img/entree-bourg.jpg"
-       alt="Vue du bourg de Saint-Mathieu : l'église, la mairie et la bibliothèque municipale"
-       width="817" height="527">
-  <div class="conteneur">
-    <div class="heros__interieur">
-      <span class="surtitre">Haute-Vienne · Nouvelle-Aquitaine</span>
-      <h1>Saint-Mathieu, en direct</h1>
-      <p>
-        L'actualité de la commune et un tour d'horizon du département,
-        réunis ici pour un accès rapide, dès votre arrivée sur le site.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="conteneur">
-    <div class="entete-section">
-      <div>
-        <span class="surtitre">Commune</span>
-        <h2>Actualités municipales</h2>
-        <p>Informations, travaux et vie locale, publiés par la mairie.</p>
+<section id="composer"><div class="wrap">
+  <h2>Composez votre boîte</h2>
+  <p class="sub">Sucrés 1,30 € · Salés 1,40 € pièce</p>
+  <div class="composer">
+    <div class="sizes" id="sizes" role="group" aria-label="Taille de la boîte"></div>
+    <div class="flavors" id="flavors"></div>
+    <div class="bar">
+      <div style="flex:1 1 220px">
+        <div id="count">0 / 12 macarons</div>
+        <div class="progress"><i id="prog"></i></div>
       </div>
-      <a class="btn btn--fantome btn--petit" href="agenda.html">Voir l'agenda</a>
+      <div><strong id="total">0,00 €</strong></div>
+      <button class="btn" id="order" disabled>Envoyer ma commande</button>
     </div>
-    <div class="filtres" data-filtres-actu role="group" aria-label="Filtrer par rubrique"></div>
-    <div class="carrousel">
-      <div class="carrousel__piste" data-actualites="0" aria-label="Actualités municipales, défiler avec les flèches du clavier"></div>
-      <button type="button" class="carrousel__fleche carrousel__fleche--prec" aria-label="Actualités précédentes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
-      </button>
-      <button type="button" class="carrousel__fleche carrousel__fleche--suiv" aria-label="Actualités suivantes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </button>
-      <div class="carrousel__points" role="group" aria-label="Aller à une actualité"></div>
-    </div>
-
-    <noscript>
-      <div class="encadre">
-        <strong>JavaScript est désactivé</strong>
-        Les actualités ne peuvent pas s'afficher. Elles restent consultables sur les panneaux
-        d'affichage de la commune et auprès de la mairie, au 05 55 00 30 26.
-      </div>
-    </noscript>
   </div>
-</section>
+</div></section>
 
-<section class="section section--doux">
-  <div class="conteneur">
-    <div class="entete-section">
-      <div>
-        <span class="surtitre">Haute-Vienne</span>
-        <h2>Actualités du département</h2>
-        <p>Une sélection sourcée de la presse régionale, à jour manuellement.</p>
-      </div>
-      <a class="btn btn--secondaire btn--petit" href="https://www.lepopulaire.fr/" target="_blank" rel="noopener">
-        Le Populaire du Centre
-      </a>
-    </div>
-    <div class="carrousel">
-      <div class="carrousel__piste" data-actualites-departement aria-label="Actualités du département, défiler avec les flèches du clavier"></div>
-      <button type="button" class="carrousel__fleche carrousel__fleche--prec" aria-label="Actualités du département précédentes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
-      </button>
-      <button type="button" class="carrousel__fleche carrousel__fleche--suiv" aria-label="Actualités du département suivantes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </button>
-      <div class="carrousel__points" role="group" aria-label="Aller à une actualité du département"></div>
-    </div>
-    <p class="texte-doux" style="margin-top:1.25rem; font-size:.9rem">
-      Sélection non exhaustive, composée par la mairie. Pour l'actualité en continu du département,
-      consultez <a href="https://www.lepopulaire.fr/" target="_blank" rel="noopener">Le Populaire du Centre</a>
-      ou les autres médias régionaux.
-    </p>
+<section id="boutique" style="background:#fff"><div class="wrap">
+  <h2>La boutique</h2>
+  <p class="sub">Un petit coin de gourmandise au cœur de Limoges</p>
+  <div class="info">
+    <div class="card"><h3>📍 Adresse</h3>
+      <p>15 place Motte<br>87000 Limoges</p>
+      <p><a href="https://www.openstreetmap.org/search?query=15%20place%20Motte%20Limoges" target="_blank" rel="noopener">Voir sur la carte</a></p></div>
+    <div class="card"><h3>🕙 Horaires</h3>
+      <table>
+        <tr><td>Lundi</td><td>Fermé</td></tr>
+        <tr><td>Mardi – Samedi</td><td>10h – 19h</td></tr>
+        <tr><td>Dimanche</td><td>Marché de Panazol</td></tr>
+      </table></div>
+    <div class="card"><h3>📦 Formats</h3>
+      <p>Boîtes de 8, 12, 18 ou 24 macarons, à panacher librement entre sucrés et salés.</p></div>
   </div>
-</section>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <h2>Nous contacter</h2>
+  <p class="sub">Une commande spéciale, un événement ? Écrivez-nous.</p>
+  <div class="cards">
+    <div class="card"><h3>📞 Téléphone</h3><a href="tel:+33984183323">09 84 18 33 23</a></div>
+    <div class="card"><h3>✉️ E-mail</h3><a href="mailto:contact@lavaliseamacarons.fr">contact@lavaliseamacarons.fr</a></div>
+  </div>
+</div></section>
 </main>
 
-<!-- PIED:DEBUT -->
-<footer class="pied">
-  <div class="conteneur">
-    <div class="pied__grille">
-      <div>
-        <div class="pied__marque">
-          <img src="assets/img/blason-officiel.png" alt="" width="166" height="93">
-          <div>
-            <strong>Saint-Mathieu</strong>
-            <p>Commune de la Haute-Vienne, au cœur du Parc naturel régional Périgord-Limousin.</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <h3>Mairie</h3>
-        <ul>
-          <li>1 place du Docteur-Hugonneau<br>87440 Saint-Mathieu</li>
-          <li><a data-tel href="tel:+33555003026">05 55 00 30 26</a></li>
-          <li><a data-courriel href="mailto:mairie@st-mathieu.fr">mairie@st-mathieu.fr</a></li>
-          <li><a href="contact.html">Horaires d'ouverture</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Accès rapide</h3>
-        <ul>
-          <li><a href="demarches.html">Démarches administratives</a></li>
-          <li><a href="vie-pratique.html#dechets">Déchets et déchèterie</a></li>
-          <li><a href="vie-municipale.html#conseil">Conseil municipal</a></li>
-          <li><a href="agenda.html">Agenda des manifestations</a></li>
-          <li><a href="contact.html#signalement">Signaler un problème</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Liens utiles</h3>
-        <ul>
-          <li><a href="https://www.service-public.fr/" target="_blank" rel="noopener">Service-public.fr</a></li>
-          <li><a href="https://www.ouestlimousin.com/" target="_blank" rel="noopener">CC Ouest Limousin</a></li>
-          <li><a href="https://www.haute-vienne.fr/" target="_blank" rel="noopener">Département de la Haute-Vienne</a></li>
-          <li><a href="https://www.pnr-perigord-limousin.fr/" target="_blank" rel="noopener">PNR Périgord-Limousin</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="pied__bas">
-      <span>© <span data-annee>2026</span> Commune de Saint-Mathieu</span>
-      <ul>
-        <li><a href="mentions-legales.html">Mentions légales</a></li>
-        <li><a href="accessibilite.html">Accessibilité</a></li>
-        <li><a href="plan-du-site.html">Plan du site</a></li>
-        <li><a href="contact.html">Nous écrire</a></li>
-      </ul>
-    </div>
-  </div>
+<footer>
+  © La Valise à Macarons, Limoges · Refonte de démonstration réalisée pour le plaisir ·
+  <a href="https://lavaliseamacarons.fr/" target="_blank" rel="noopener">Site officiel</a>
 </footer>
-<!-- PIED:FIN -->
 
-<!-- RECHERCHE:DEBUT -->
-<dialog id="dialogue-recherche" class="dialogue-recherche" aria-label="Rechercher sur le site">
-  <form method="dialog">
-    <div class="recherche__haut">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-      </svg>
-      <input type="search" id="champ-recherche" placeholder="Que cherchez-vous ? (carte d'identité, déchets, salle…)"
-             autocomplete="off" aria-label="Termes de recherche">
-      <button type="submit" class="btn btn--secondaire btn--petit">Fermer</button>
-    </div>
-  </form>
-  <ul class="recherche__resultats" id="resultats-recherche"></ul>
-  <div class="recherche__pied">
-    <span><kbd>↑</kbd> <kbd>↓</kbd> naviguer</span>
-    <span><kbd>Entrée</kbd> ouvrir</span>
-    <span><kbd>Échap</kbd> fermer</span>
-  </div>
-</dialog>
-<!-- RECHERCHE:FIN -->
-
+<script>
+// Les parfums ci-dessous sont des exemples : à remplacer par la vraie carte.
+const FLAVORS=[
+ {n:'Framboise',c:'#e8799b',t:'sucré'},{n:'Pistache',c:'#9cc59b',t:'sucré'},
+ {n:'Citron',c:'#f5d76e',t:'sucré'},{n:'Chocolat',c:'#7a4a3a',t:'sucré'},
+ {n:'Violette',c:'#b79ad8',t:'sucré'},{n:'Caramel beurre salé',c:'#e0a458',t:'sucré'},
+ {n:'Foie gras figue',c:'#c58b6a',t:'salé'},{n:'Chèvre noix',c:'#e9dcc0',t:'salé'},
+ {n:'Saumon aneth',c:'#f2a15f',t:'salé'},{n:'Tapenade',c:'#6f7a4f',t:'salé'}
+];
+const PRICE={'sucré':1.3,'salé':1.4};
+let size=12;const qty=FLAVORS.map(()=>0);
+const $=id=>document.getElementById(id);
+const eur=v=>v.toFixed(2).replace('.',',')+' €';
+const sum=()=>qty.reduce((a,b)=>a+b,0);
+function render(){
+ $('sizes').innerHTML=[8,12,18,24].map(s=>`<button class="${s===size?'on':''}" data-s="${s}">${s} macarons</button>`).join('');
+ $('flavors').innerHTML=FLAVORS.map((f,i)=>`<div class="fl"><div class="mac" style="--c:${f.c}"></div>
+  <span class="n">${f.n}<small>${f.t} · ${eur(PRICE[f.t])}</small></span>
+  <div class="qty"><button data-i="${i}" data-d="-1" aria-label="Retirer un ${f.n}">−</button><b>${qty[i]}</b><button data-i="${i}" data-d="1" aria-label="Ajouter un ${f.n}">+</button></div></div>`).join('');
+ const n=sum();
+ $('count').textContent=`${n} / ${size} macarons`;
+ $('prog').style.width=Math.min(100,n/size*100)+'%';
+ $('total').textContent=eur(qty.reduce((a,q,i)=>a+q*PRICE[FLAVORS[i].t],0));
+ $('order').disabled=n!==size;
+}
+$('sizes').onclick=e=>{const s=e.target.dataset.s;if(!s)return;size=+s;
+ while(sum()>size){const i=qty.findIndex(q=>q>0);qty[i]--}render()};
+$('flavors').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+ const i=+b.dataset.i,d=+b.dataset.d;
+ if(d>0&&sum()>=size)return;if(d<0&&qty[i]===0)return;qty[i]+=d;render()};
+$('order').onclick=()=>{
+ const lines=FLAVORS.map((f,i)=>qty[i]?`- ${qty[i]} × ${f.n}`:null).filter(Boolean).join('\n');
+ const body=`Bonjour,\nJe souhaite commander une boîte de ${size} macarons :\n${lines}\n\nTotal : ${$('total').textContent}\nMerci !`;
+ location.href='mailto:contact@lavaliseamacarons.fr?subject='+encodeURIComponent('Commande boîte de '+size)+'&body='+encodeURIComponent(body);
+};
+render();
+</script>
 </body>
 </html>
