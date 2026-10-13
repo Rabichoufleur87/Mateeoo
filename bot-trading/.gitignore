@@ -1,0 +1,6 @@
+# Fichiers créés en local par le bot
+portefeuilles/
+rapport.html
+donnees/*.csv
+!donnees/sp500_mensuel.csv
+__pycache__/
